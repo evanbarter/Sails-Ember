@@ -2,7 +2,7 @@
   "name": "Sails + Ember",
   "private": true,
   "version": "0.0.0",
-  "description": "Experimental Sails + Ember bootstrap.",
+  "description": "Experimental Sails + Ember boilerplate.",
   "dependencies": {
     "sails": "0.9.3",
     "grunt": "0.4.1",
