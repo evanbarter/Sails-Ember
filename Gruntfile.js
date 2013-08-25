@@ -51,7 +51,7 @@ module.exports = function (grunt) {
     'js/jquery-1.9.1.js',
     'js/handlebars.js',
     'js/ember-1.0.0-rc.7.js',
-    'js/ember-data-latest.min.js',
+    'js/ember-model-latest.js',
 
     // A simpler boilerplate library for getting you up and running w/ an
     // automatic listener for incoming messages from Socket.io.

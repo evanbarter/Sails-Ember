@@ -6,6 +6,12 @@
 * I do not like LESS
 * I prefer SASS
 * Even dogs likes Javascript
+* TODOS TODOS TODOS
+
+## Why Ember.Model?
+* Closest thing to what Sails outputs by default (and sanity saving features like collectionKey)
+* .json in the URL easily worked around with ajaxSettings
+* Currently using [this branch](https://github.com/pansapien/ember-model/tree/streamed-updates) from @pansapien and tracking [this PR](https://github.com/ebryn/ember-model/pull/214)
 
 ## TODO
-* Hook a data layer in to [Sails' Socket API](http://sailsjs.org/#!documentation/sockets)
+* Hook [Sails' Socket API](http://sailsjs.org/#!documentation/sockets) in to Ember.Model

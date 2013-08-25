@@ -1,22 +1,17 @@
-Todos.Todo = DS.Model.extend({
-  title: DS.attr('string'),
-  isCompleted: DS.attr('boolean')
+Todos.Todo = Ember.Model.extend({
+  id: Ember.attr(),
+  title: Ember.attr(),
+  isCompleted: Ember.attr(),
 });
 
-Todos.Todo.FIXTURES = [
- {
-   id: 1,
-   title: 'Learn Ember.js',
-   isCompleted: true
- },
- {
-   id: 2,
-   title: '...',
-   isCompleted: false
- },
- {
-   id: 3,
-   title: 'Profit!',
-   isCompleted: false
- }
-];
+Todos.Todo.url = "/todo";
+Todos.Todo.adapter = Ember.RESTAdapter.create({
+  ajaxSettings: function(url, method) {
+    url = url.replace('.json', '');
+    return {
+      url: url,
+      type: method,
+      dataType: "json"
+    };
+  }
+});

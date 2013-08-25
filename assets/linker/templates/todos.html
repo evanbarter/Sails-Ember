@@ -6,20 +6,9 @@
   </header>
 
     <section id="main">
-      <ul id="todo-list">
-        {{#each controller itemController="todo"}}
-          <li {{bindAttr class="isCompleted:completed isEditing:editing"}}>
-            {{#if isEditing}}
-              {{view Todos.EditTodoView valueBinding="title"}}
-            {{else}}
-              {{view Ember.Checkbox checkedBinding="isCompleted" class="toggle"}}
-              <label {{action "editTodo" on="doubleClick"}}>{{title}}</label><button {{action "removeTodo"}} class="destroy"></button>
-            {{/if}}
-          </li>
-        {{/each}}
-      </ul>
+      {{outlet}}
 
-      <input type="checkbox" id="toggle-all">
+      {{view Ember.Checkbox id="toggle-all" checkedBinding="allAreDone"}}
     </section>
 
     <footer id="footer">
@@ -28,19 +17,21 @@
       </span>
       <ul id="filters">
         <li>
-          <a href="all" class="selected">All</a>
+           {{#linkTo 'todos.index' activeClass="selected"}}All{{/linkTo}}
         </li>
         <li>
-          <a href="active">Active</a>
+          {{#linkTo 'todos.active' activeClass="selected"}}Active{{/linkTo}}
         </li>
         <li>
-          <a href="completed">Completed</a>
+          {{#linkTo 'todos.completed' activeClass="selected"}}Completed{{/linkTo}}
         </li>
       </ul>
 
-      <button id="clear-completed">
-        Clear completed (1)
-      </button>
+      {{#if hasCompleted}}
+        <button id="clear-completed" {{action "clearCompleted"}}>
+          Clear completed ({{completed}})
+        </button>
+      {{/if}}
     </footer>
 </section>
 
