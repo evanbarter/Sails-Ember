@@ -14,7 +14,10 @@ Todos.TodosController = Ember.ArrayController.extend({
     this.set('newTitle', '');
 
     // Save the new model
-    todo.save();
+    Ember.set(Todos, 'savingTodo', todo);
+    todo.save().then(function () {
+      Ember.set(Todos, 'savingTodo', null);
+    });
   },
 
   remaining: function () {
@@ -46,7 +49,9 @@ Todos.TodosController = Ember.ArrayController.extend({
       return !!this.get('length') && this.everyProperty('isCompleted', true);
     } else {
       this.setEach('isCompleted', value);
-      this.get('store').save();
+      this.get('content').forEach(function(item) {
+        item.save();
+      });
       return value;
     }
   }.property('@each.isCompleted')

@@ -14,4 +14,4 @@
 * Currently using [this branch](https://github.com/pansapien/ember-model/tree/streamed-updates) from @pansapien and tracking [this PR](https://github.com/ebryn/ember-model/pull/214)
 
 ## TODO
-* Hook [Sails' Socket API](http://sailsjs.org/#!documentation/sockets) in to Ember.Model
+* Clean up the realtime implementation to be more Ember-like
