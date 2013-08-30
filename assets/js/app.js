@@ -1,35 +1,47 @@
 window.Todos = Ember.Application.create();
 
-(function (io) {
-  var socket = io.connect();
+Todos.Sails = Ember.Object.extend({
+  channel: null,
 
-  socket.on('connect', function () {
-    // This is necessary to listen for comet messages.
-    socket.request('/todo');
+  init: function () {
+    var self = this, io = window.io || {};
 
-    socket.on('message', function (message) {
-      if (message.model !== 'todo') return;
+    if (typeof io.connect === 'function') {
+      this.socket = io.connect();
+      this.socket.on('message', function (message) {
+        self.handleMessage(message);
+      });
+    }
+  },
 
-      switch (message.verb) {
-        case 'update':
-          var local = Todos.Todo.find(message.id).setProperties({
-            title: message.data.title,
-            isCompleted: message.data.isCompleted
-          });
-          break;
-        case 'destroy':
-          Todos.Todo.find(message.id).didDeleteRecord();
-          break;
-        case 'create':
-          var saving = Ember.get(Todos, 'savingTodo');
-          if (!saving || !Ember.get(saving, 'isSaving')) {
-            Todos.Todo.find(message.id);
-          }
-          break;
-      }
-    });
+  subscribe: function (channel) {
+    this.channel = channel;
+    if (this.socket) {
+      this.socket.request('/' + channel);
+    }
+  },
 
-  });
+  unsubscribe: function (channel) {
+    this.channel = null;
+  },
 
-  window.socket = socket;
-})(window.io);
+  handleMessage: function (message) {
+    if (message.model !== this.channel) return;
+
+    var router = this.get('container').lookup('router:main');
+    try {
+      router.send(message.verb, message);
+    } catch (e) {
+      throw e;
+    }
+  }
+});
+
+Ember.Application.initializer({
+  name: 'sails',
+  initialize: function(container, application) {
+    container.optionsForType('sails', { singleton: true });
+    container.register('sails:main', Todos.Sails);
+    container.typeInjection('route', 'sails', 'sails:main');
+  }
+});

@@ -8,6 +8,30 @@ Todos.Router.map(function () {
 Todos.TodosRoute = Ember.Route.extend({
   model: function () {
     return Todos.Todo.find();
+  },
+  activate: function() {
+    this.get('sails').subscribe('todo');
+  },
+  deactivate: function() {
+    this.get('sails').unsuscribe('todo');
+  },
+
+  events: {
+    update: function (message) {
+      Todos.Todo.find(message.data.id).setProperties({
+        title: message.data.title,
+        isCompleted: message.data.isCompleted
+      });
+    },
+    create: function (message) {
+      var saving = Ember.get(Todos, 'savingTodo');
+      if (!saving || !Ember.get(saving, 'isSaving')) {
+        Todos.Todo.find(message.id);
+      }
+    },
+    destroy: function (message) {
+      Todos.Todo.find(message.id).didDeleteRecord();
+    }
   }
 });
 
