@@ -14,7 +14,7 @@
 * Currently using [this branch](https://github.com/pansapien/ember-model/tree/streamed-updates) from @pansapien and tracking [this PR](https://github.com/ebryn/ember-model/pull/214)
 
 ## TODO
-* I mentioned I'd like to get [JSON API](http://jsonapi.org) support in to Sail, then maybe consider [Ember Data](https://github.com/emberjs/data).
+* I mentioned I'd like to get [JSON API](http://jsonapi.org) support in to Sails, then maybe consider [Ember Data](https://github.com/emberjs/data).
 
 ## Credits
 [This post](http://livsey.org/blog/2013/02/10/integrating-pusher-with-ember/) was incredibly useful in demonstrating how to clean up/better implement socket.io support.
