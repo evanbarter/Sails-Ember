@@ -2,7 +2,8 @@
   {{#each controller itemController="todo"}}
     <li {{bindAttr class="isCompleted:completed isEditing:editing"}}>
       {{#if isEditing}}
-        {{view Todos.EditTodoView valueBinding="title"}}
+        {{edit-todo class="edit" value=title focus-out="acceptChanges"
+                                 insert-newline="acceptChanges"}}
       {{else}}
         {{view Ember.Checkbox checkedBinding="isCompleted" class="toggle"}}
         <label {{action "editTodo" on="doubleClick"}}>{{title}}</label><button {{action "removeTodo"}} class="destroy"></button>

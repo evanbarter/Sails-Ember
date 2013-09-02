@@ -16,7 +16,7 @@ Todos.TodosRoute = Ember.Route.extend({
     this.get('sails').unsuscribe('todo');
   },
 
-  events: {
+  actions: {
     update: function (message) {
       Todos.Todo.find(message.data.id).setProperties({
         title: message.data.title,
@@ -25,7 +25,9 @@ Todos.TodosRoute = Ember.Route.extend({
     },
     create: function (message) {
       var saving = Ember.get(Todos, 'savingTodo');
+      console.log(saving);
       if (!saving || !Ember.get(saving, 'isSaving')) {
+        console.log('doing a lookup for ' + message.id);
         Todos.Todo.find(message.id);
       }
     },
